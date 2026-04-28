@@ -1,38 +1,32 @@
 package com.klef.spring.mvc.controller;
 
-import com.klef.spring.mvc.model.Course;
-import com.klef.spring.mvc.repository.CourseRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
+
+import org.springframework.web.bind.annotation.*;
+
+import com.klef.spring.mvc.model.Course;
+import com.klef.spring.mvc.service.CourseService;
 
 @RestController
 @RequestMapping("/api/courses")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "*")
 public class CourseController {
 
-  private final CourseRepository repo;
+  private final CourseService courseService;
 
-  public CourseController(CourseRepository repo) {
-    this.repo = repo;
+  public CourseController(CourseService courseService) {
+    this.courseService = courseService;
   }
 
+  // POST /api/courses
   @PostMapping
-  public Course create(@RequestBody Course c) {
-    if (c.getName() == null || c.getName().isBlank())
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "name required");
-    if (c.getCategory() == null || c.getCategory().isBlank())
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "category required");
-    if (c.getInstructor() == null || c.getInstructor().isBlank())
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "instructor required");
-
-    return repo.save(c);
+  public Course addCourse(@RequestBody Course course) {
+    return courseService.addCourse(course);
   }
 
+  // GET /api/courses
   @GetMapping
-  public List<Course> list() {
-    return repo.findAll();
+  public List<Course> getAllCourses() {
+    return courseService.getAllCourses();
   }
 }

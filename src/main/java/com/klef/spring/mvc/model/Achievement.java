@@ -1,104 +1,58 @@
 package com.klef.spring.mvc.model;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "achievements")
-public class Achievement
-{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Achievement {
 
-    @Column(nullable = false)
-    private String title;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column(length = 2000)
-    private String description;
+  @Column(nullable = false)
+  private String studentId;   // e.g., STU001 (from your UI)
 
-    @Column(nullable = false)
-    private String date;
+  @Column(nullable = false)
+  private String title;       // e.g., "First Place - State Science Fair"
 
-    @Column(nullable = false)
-    private String positionAward;
+  @Column(length = 1000)
+  private String description;
 
-    @Column(nullable = false)
-    private String rollNumber;
+  @Column(nullable = false)
+  private String category;    // e.g., Academic Competition, Arts, Sports
 
-    // Many achievements belong to one student
-    @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
+  @Column(nullable = false)
+  private String level;       // e.g., School, State, National
 
-    public Achievement() {}
+  private LocalDate date;     // e.g., 2025-11-15
+  @Column(name = "position_award", nullable = false)
+  private String position;    // e.g., Winner / 1st Place
 
-    public Achievement(String title, String description, String date,
-                       String positionAward, String rollNumber)
-    {
-        this.title = title;
-        this.description = description;
-        this.date = date;
-        this.positionAward = positionAward;
-        this.rollNumber = rollNumber;
-    }
+  // getters & setters
+  public Long getId() { return id; }
+  public void setId(Long id) { this.id = id; }
 
-    // GETTERS
+  public String getStudentId() { return studentId; }
+  public void setStudentId(String studentId) { this.studentId = studentId; }
 
-    public Long getId() {
-        return id;
-    }
+  public String getTitle() { return title; }
+  public void setTitle(String title) { this.title = title; }
 
-    public String getTitle() {
-        return title;
-    }
+  public String getDescription() { return description; }
+  public void setDescription(String description) { this.description = description; }
 
-    public String getDescription() {
-        return description;
-    }
+  public String getCategory() { return category; }
+  public void setCategory(String category) { this.category = category; }
 
-    public String getDate() {
-        return date;
-    }
+  public String getLevel() { return level; }
+  public void setLevel(String level) { this.level = level; }
 
-    public String getPositionAward() {
-        return positionAward;
-    }
+  public LocalDate getDate() { return date; }
+  public void setDate(LocalDate date) { this.date = date; }
 
-    public String getRollNumber() {
-        return rollNumber;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    // SETTERS
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public void setPositionAward(String positionAward) {
-        this.positionAward = positionAward;
-    }
-
-    public void setRollNumber(String rollNumber) {
-        this.rollNumber = rollNumber;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
+  public String getPosition() { return position; }
+  public void setPosition(String position) { this.position = position; }
 }

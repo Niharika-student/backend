@@ -17,9 +17,6 @@ public class CourseServiceImpl implements CourseService {
 
   @Override
   public Course addCourse(Course course) {
-    if (repo.existsByCode(course.getCode())) {
-      throw new RuntimeException("Course code already exists: " + course.getCode());
-    }
     return repo.save(course);
   }
 
